@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bcvworld.portal.dto.JobDetailResponse;
+import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.CommentRequest;
 import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.model.JobComment;
@@ -32,18 +34,18 @@ public class PortalJobController {
 
   
     @GetMapping
-    public ResponseEntity<List<Job>> getAllJobs() {
+    public ResponseEntity<List<JobResponse>> getAllJobs() {
         logger.info("Fetching all jobs");
-        List<Job> jobs = jobService.getAllJobs();
-        return ResponseEntity.ok(jobs);
+        return ResponseEntity.ok(jobService.getAllJobs());
     }
+
 
     // 🔹 GET JOB BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
-        Job job = jobService.getJobById(id);
-        return ResponseEntity.ok(job);
+    public ResponseEntity<JobDetailResponse> getJobById(@PathVariable Long id) {
+        return ResponseEntity.ok(jobService.getJobDetails(id));
     }
+
 
     // 🔹 INCREMENT VIEW COUNT
     // userId is optional (guest users allowed)

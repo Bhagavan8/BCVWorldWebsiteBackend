@@ -34,8 +34,8 @@ public class AdminJobService {
 		}
 
 		// Safety default
-		if (job.getExperience() == null || job.getExperience().isBlank()) {
-			job.setExperience("Fresher");
+		if (job.getExperienceRequired() == null || job.getExperienceRequired().isBlank()) {
+			job.setExperienceRequired("FRESHER");
 		}
 
 		job.setActive(true);
