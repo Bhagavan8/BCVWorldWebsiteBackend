@@ -40,14 +40,13 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // 🔓 PUBLIC APIs
-                .requestMatchers("/api/auth/**").permitAll()
+                // 🔓 PUBLIC
                 .requestMatchers("/api/jobs/**").permitAll()
-                .requestMatchers("/api/companies/logos/**").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/admin/auth/**").permitAll()
+                .requestMatchers("/api/companies/**").permitAll()
 
-                // 🔐 ADMIN APIs
-                .requestMatchers("/api/admin/jobs/**").hasRole("ADMIN")
+                // 🔐 ADMIN
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                 .anyRequest().authenticated()

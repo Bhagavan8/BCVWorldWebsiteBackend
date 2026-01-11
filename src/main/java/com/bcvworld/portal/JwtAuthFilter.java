@@ -33,22 +33,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // 🔓 ALWAYS SKIP JWT FOR PUBLIC ENDPOINTS
+        // 🔓 HARD SKIP PUBLIC + PREFLIGHT
         if (
-            path.startsWith("/api/auth/")
-            || path.startsWith("/api/jobs")
-            || path.startsWith("/api/companies")
-            || path.startsWith("/api/admin/auth")
-            || path.startsWith("/error")
+            request.getMethod().equalsIgnoreCase("OPTIONS") ||
+            path.startsWith("/api/jobs") ||
+            path.startsWith("/api/auth") ||
+            path.startsWith("/api/admin/auth") ||
+            path.startsWith("/api/companies") ||
+            path.startsWith("/error")
         ) {
+            SecurityContextHolder.clearContext();
             filterChain.doFilter(request, response);
             return;
         }
 
         String authHeader = request.getHeader("Authorization");
 
-        // ❗ DO NOT BLOCK HERE — let Spring Security decide
+        // 🔐 Protected APIs only
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            SecurityContextHolder.clearContext();
             filterChain.doFilter(request, response);
             return;
         }
@@ -60,21 +63,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String email = claims.getSubject();
             String role = (String) claims.get("role");
 
-            SimpleGrantedAuthority authority =
-                    new SimpleGrantedAuthority("ROLE_" + role);
-
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             email,
                             null,
-                            List.of(authority)
+                            List.of(new SimpleGrantedAuthority("ROLE_" + role))
                     );
 
             SecurityContextHolder.getContext()
                     .setAuthentication(authentication);
 
         } catch (Exception e) {
-            // ❗ Do not write response here
             SecurityContextHolder.clearContext();
         }
 
