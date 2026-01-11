@@ -16,7 +16,6 @@ public class CorsConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        // IMPORTANT: use allowedOriginPatterns with credentials
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",

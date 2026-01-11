@@ -29,21 +29,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            // REST API → CSRF disabled
             .csrf(csrf -> csrf.disable())
 
-            // Use our CORS config
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
-            // JWT = Stateless
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // Authorization rules
             .authorizeHttpRequests(auth -> auth
-
-                // Preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 // 🔓 PUBLIC APIs
@@ -56,11 +50,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/jobs/**").hasRole("ADMIN")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                // Everything else needs auth
                 .anyRequest().authenticated()
             )
 
-            // JWT filter
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

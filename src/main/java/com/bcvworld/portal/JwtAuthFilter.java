@@ -34,13 +34,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // 🔓 SKIP JWT FOR PUBLIC ENDPOINTS (THIS WAS MISSING)
+        // 🔓 SKIP JWT FOR PUBLIC ENDPOINTS
         if (
                 HttpMethod.OPTIONS.matches(request.getMethod())
-                || path.startsWith("/api/auth/")
-                || path.startsWith("/api/jobs/")
-                || path.startsWith("/api/companies/")
-                || path.startsWith("/api/admin/auth/")
+                || path.startsWith("/api/auth")
+                || path.startsWith("/api/jobs")
+                || path.startsWith("/api/companies")
+                || path.startsWith("/api/admin/auth")
                 || path.startsWith("/error")
         ) {
             filterChain.doFilter(request, response);
@@ -66,7 +66,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String email = claims.getSubject();
             String role = (String) claims.get("role");
 
-            // ROLE_ prefix required for hasRole("ADMIN")
             SimpleGrantedAuthority authority =
                     new SimpleGrantedAuthority("ROLE_" + role);
 
