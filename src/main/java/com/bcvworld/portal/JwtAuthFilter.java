@@ -1,11 +1,12 @@
 package com.bcvworld.portal;
 
-
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,34 +32,61 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        String path = request.getServletPath();
+
+        // 🔓 SKIP JWT FOR PUBLIC ENDPOINTS (THIS WAS MISSING)
+        if (
+                HttpMethod.OPTIONS.matches(request.getMethod())
+                || path.startsWith("/api/auth/")
+                || path.startsWith("/api/jobs/")
+                || path.startsWith("/api/companies/")
+                || path.startsWith("/api/admin/auth/")
+                || path.startsWith("/error")
+        ) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // 🔐 JWT REQUIRED FOR PROTECTED APIs
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            try {
-                String token = authHeader.substring(7);
-                Claims claims = jwtUtil.validateToken(token);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    "{\"error\":\"Missing Authorization header\"}"
+            );
+            return;
+        }
 
-                String email = claims.getSubject();
-                String role = (String) claims.get("role");
+        try {
+            String token = authHeader.substring(7);
+            Claims claims = jwtUtil.validateToken(token);
 
-                // 🔑 THIS IS THE MISSING PIECE
-                SimpleGrantedAuthority authority =
-                        new SimpleGrantedAuthority("ROLE_" + role);
+            String email = claims.getSubject();
+            String role = (String) claims.get("role");
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                email,
-                                null,
-                                List.of(authority)
-                        );
+            // ROLE_ prefix required for hasRole("ADMIN")
+            SimpleGrantedAuthority authority =
+                    new SimpleGrantedAuthority("ROLE_" + role);
 
-                SecurityContextHolder.getContext()
-                        .setAuthentication(authentication);
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            email,
+                            null,
+                            List.of(authority)
+                    );
 
-            } catch (Exception e) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
-            }
+            SecurityContextHolder.getContext()
+                    .setAuthentication(authentication);
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write(
+                    "{\"error\":\"Invalid or expired token\"}"
+            );
+            return;
         }
 
         filterChain.doFilter(request, response);
