@@ -6,7 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,30 +31,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String path = request.getServletPath();
+        String path = request.getRequestURI();
 
-        // 🔓 SKIP JWT FOR PUBLIC ENDPOINTS
+        // 🔓 ALWAYS SKIP JWT FOR PUBLIC ENDPOINTS
         if (
-                HttpMethod.OPTIONS.matches(request.getMethod())
-                || path.startsWith("/api/auth")
-                || path.startsWith("/api/jobs")
-                || path.startsWith("/api/companies")
-                || path.startsWith("/api/admin/auth")
-                || path.startsWith("/error")
+            path.startsWith("/api/auth/")
+            || path.startsWith("/api/jobs")
+            || path.startsWith("/api/companies")
+            || path.startsWith("/api/admin/auth")
+            || path.startsWith("/error")
         ) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 🔐 JWT REQUIRED FOR PROTECTED APIs
         String authHeader = request.getHeader("Authorization");
 
+        // ❗ DO NOT BLOCK HERE — let Spring Security decide
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setContentType("application/json");
-            response.getWriter().write(
-                    "{\"error\":\"Missing Authorization header\"}"
-            );
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -80,12 +74,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     .setAuthentication(authentication);
 
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write(
-                    "{\"error\":\"Invalid or expired token\"}"
-            );
-            return;
+            // ❗ Do not write response here
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);

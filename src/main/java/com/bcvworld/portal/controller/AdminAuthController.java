@@ -2,89 +2,134 @@ package com.bcvworld.portal.controller;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bcvworld.portal.JwtUtil;
 import com.bcvworld.portal.model.User;
-
 import com.bcvworld.portal.service.AdminAuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/admin/auth")
+@RequestMapping(
+        value = "/api/admin/auth",
+        produces = "application/json"
+)
 public class AdminAuthController {
 
-	private final AdminAuthService authService;
-	private final JwtUtil jwtUtil;
+    private final AdminAuthService authService;
+    private final JwtUtil jwtUtil;
 
-	// ✅ Constructor injection (BEST PRACTICE)
-	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil) {
-		this.authService = authService;
-		this.jwtUtil = jwtUtil;
-	}
+    public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil) {
+        this.authService = authService;
+        this.jwtUtil = jwtUtil;
+    }
 
-	// ================= REGISTER =================
-	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody User user, HttpServletRequest request) {
-		try {
-			String ipAddress = request.getHeader("X-Forwarded-For");
-			if (ipAddress == null || ipAddress.isEmpty()) {
-				ipAddress = request.getRemoteAddr();
-			}
-			user.setIpAddress(ipAddress);
+    // ================= REGISTER =================
+    @PostMapping("/register")
+    public ResponseEntity<?> register(
+            @RequestBody User user,
+            HttpServletRequest request
+    ) {
 
-			User registeredUser = authService.register(user);
-			return ResponseEntity.ok(registeredUser);
+        try {
+            String ipAddress = request.getHeader("X-Forwarded-For");
+            if (ipAddress == null || ipAddress.isBlank()) {
+                ipAddress = request.getRemoteAddr();
+            }
+            user.setIpAddress(ipAddress);
 
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-		}
-	}
+            User registeredUser = authService.register(user);
 
-	// ================= LOGIN =================
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-		try {
-			String email = credentials.get("email");
-			String password = credentials.get("password");
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(registeredUser);
 
-			User user = authService.login(email, password);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
 
-			// ✅ Generate JWT token
-			String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
+    // ================= LOGIN =================
+    @PostMapping("/login")
+    public ResponseEntity<?> login(
+            @RequestBody Map<String, String> credentials
+    ) {
 
-			// ✅ Required response structure
-			return ResponseEntity.ok(
-					Map.of("token", token, "role", user.getRole(), "email", user.getEmail(), "name", user.getName()));
+        String email = credentials.get("email");
+        String password = credentials.get("password");
 
-		} catch (Exception e) {
-			return ResponseEntity.status(401).body(Map.of("message", "Invalid email or password"));
-		}
-	}
+        if (email == null || password == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", "Email and password are required"));
+        }
 
-	// ================= SOCIAL LOGIN =================
-	@PostMapping("/social")
-	public ResponseEntity<?> socialLogin(@RequestBody Map<String, String> payload) {
-		try {
-			String email = payload.get("email");
-			String name = payload.get("name");
-			String provider = payload.get("provider");
+        try {
+            User user = authService.login(email, password);
 
-			User user = authService.socialLogin(email, name, provider);
+            String token = jwtUtil.generateToken(
+                    user.getEmail(),
+                    user.getRole()
+            );
 
-			// Optional: also issue token for social login
-			String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
+            return ResponseEntity.ok(
+                    Map.of(
+                            "token", token,
+                            "role", user.getRole(),
+                            "email", user.getEmail(),
+                            "name", user.getName()
+                    )
+            );
 
-			return ResponseEntity.ok(
-					Map.of("token", token, "role", user.getRole(), "email", user.getEmail(), "name", user.getName()));
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid email or password"));
+        }
+    }
 
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-		}
-	}
+    // ================= SOCIAL LOGIN =================
+    @PostMapping("/social")
+    public ResponseEntity<?> socialLogin(
+            @RequestBody Map<String, String> payload
+    ) {
+
+        try {
+            String email = payload.get("email");
+            String name = payload.get("name");
+            String provider = payload.get("provider");
+
+            if (email == null || provider == null) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(Map.of("message", "Invalid social login payload"));
+            }
+
+            User user = authService.socialLogin(email, name, provider);
+
+            String token = jwtUtil.generateToken(
+                    user.getEmail(),
+                    user.getRole()
+            );
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "token", token,
+                            "role", user.getRole(),
+                            "email", user.getEmail(),
+                            "name", user.getName()
+                    )
+            );
+
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
 }
