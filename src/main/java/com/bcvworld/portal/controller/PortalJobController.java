@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bcvworld.portal.dto.JobDetailResponse;
+import com.bcvworld.portal.dto.JobLikeResponse;
 import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.CommentRequest;
-import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.model.JobComment;
 import com.bcvworld.portal.service.PortalJobService;
 
@@ -60,13 +60,13 @@ public class PortalJobController {
 
     // 🔹 LIKE / UNLIKE
     @PostMapping("/{id}/like")
-    public ResponseEntity<Job> toggleLike(
+    public ResponseEntity<JobLikeResponse> toggleLike(
             @PathVariable Long id,
             @RequestParam String userId) {
 
-        Job updatedJob = jobService.toggleLike(id, userId);
-        return ResponseEntity.ok(updatedJob);
+        return ResponseEntity.ok(jobService.toggleLike(id, userId));
     }
+
 
 
     @GetMapping("/{id}/comments")

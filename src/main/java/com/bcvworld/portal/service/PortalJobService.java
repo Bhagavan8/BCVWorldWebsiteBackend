@@ -3,21 +3,25 @@ package com.bcvworld.portal.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bcvworld.portal.dto.JobDetailResponse;
+import com.bcvworld.portal.dto.JobLikeResponse;
 import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.exception.ResourceNotFoundException;
 import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.model.JobComment;
 import com.bcvworld.portal.model.JobLike;
 import com.bcvworld.portal.model.JobView;
+import com.bcvworld.portal.model.User;
 import com.bcvworld.portal.repository.JobCommentRepository;
 import com.bcvworld.portal.repository.JobLikeRepository;
 import com.bcvworld.portal.repository.JobRepository;
 import com.bcvworld.portal.repository.JobViewRepository;
+import com.bcvworld.portal.repository.UserRepository;
 
 
 
@@ -28,14 +32,16 @@ public class PortalJobService {
 	private final JobViewRepository jobViewRepository;
 	private final JobLikeRepository jobLikeRepository;
 	private JobCommentRepository jobCommentRepository;
+	private final UserRepository userRepository;
 
 	// ✅ MANUAL CONSTRUCTOR (BEST PRACTICE)
 	public PortalJobService(JobRepository jobRepository, JobViewRepository jobViewRepository,
-			JobLikeRepository jobLikeRepository,JobCommentRepository jobCommentRepository ) {
+			JobLikeRepository jobLikeRepository,JobCommentRepository jobCommentRepository,UserRepository userRepository) {
 		this.jobRepository = jobRepository;
 		this.jobViewRepository = jobViewRepository;
 		this.jobLikeRepository = jobLikeRepository;
 		this.jobCommentRepository = jobCommentRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -161,32 +167,52 @@ public class PortalJobService {
 	    jobViewRepository.save(view);
 	}
 
-	// 🔹 LIKE / UNLIKE
-	public Job toggleLike(Long jobId, String userId) {
-		Job job = getJobById(jobId);
+	@Transactional
+	public JobLikeResponse toggleLike(Long jobId, String userId) {
+	    Job job = getJobById(jobId);
 
-		return jobLikeRepository.findByJobIdAndUserId(jobId, userId).map(like -> {
-			jobLikeRepository.delete(like);
-			job.setLikeCount(Math.max(0, job.getLikeCount() - 1));
-			job.setLiked(false);
-			return jobRepository.save(job);
-		}).orElseGet(() -> {
-			jobLikeRepository.save(new JobLike(jobId, userId));
-			job.setLikeCount(job.getLikeCount() + 1);
-			job.setLiked(true);
-			return jobRepository.save(job);
-		});
+	    boolean liked;
+
+	    Optional<JobLike> existingLike =
+	            jobLikeRepository.findByJobIdAndUserId(jobId, userId);
+
+	    if (existingLike.isPresent()) {
+	        jobLikeRepository.delete(existingLike.get());
+	        job.setLikeCount(Math.max(0, job.getLikeCount() - 1));
+	        liked = false;
+	    } else {
+	        jobLikeRepository.save(new JobLike(jobId, userId));
+	        job.setLikeCount(job.getLikeCount() + 1);
+	        liked = true;
+	    }
+
+	    jobRepository.save(job);
+
+	    JobLikeResponse response = new JobLikeResponse();
+	    response.setJobId(jobId);
+	    response.setLikeCount(job.getLikeCount());
+	    response.setLiked(liked);
+
+	    return response;
 	}
+
 	
 
-	public JobComment addComment(Long jobId, Long userId, String userName, String content) {
+	public JobComment addComment(Long jobId, String userEmail, String userName, String content) {
+
+	    User user = userRepository.findByEmail(userEmail)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
 	    JobComment comment = new JobComment();
 	    comment.setJobId(jobId);
-	    comment.setUserId(userId);
+	    comment.setUserId(user.getId());
 	    comment.setUserName(userName);
+	    comment.setUserEmail(userEmail);
 	    comment.setContent(content);
+
 	    return jobCommentRepository.save(comment);
 	}
+
 
 	public List<JobComment> getJobComments(Long jobId) {
 	    return jobCommentRepository.findByJobIdOrderByCreatedAtDesc(jobId);
