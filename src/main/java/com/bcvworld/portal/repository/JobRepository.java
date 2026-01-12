@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.Job;
 
 
@@ -34,12 +35,13 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     @Query(value = "SELECT COUNT(*) FROM jobs WHERE job_type = :jobType", nativeQuery = true)
     long countCustomJobsByType(@Param("jobType") String jobType);
-    Page<Job> findByJobTitleContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(String title, String company, Pageable pageable);
+    
     @Query("""
     	    SELECT DISTINCT j
     	    FROM Job j
     	    LEFT JOIN FETCH j.locations
     	    LEFT JOIN FETCH j.educationLevels
+    	    WHERE j.isActive = true
     	""")
     	List<Job> findAllWithLocationsAndEducation();
     
@@ -51,6 +53,28 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     	    WHERE j.id = :id
     	""")
     	Optional<Job> findByIdWithDetails(@Param("id") Long id);
+    
+    @Query("""
+    	    SELECT j.id
+    	    FROM Job j
+    	    WHERE (:search IS NULL
+    	        OR LOWER(j.jobTitle) LIKE LOWER(CONCAT('%', :search, '%'))
+    	        OR LOWER(j.companyName) LIKE LOWER(CONCAT('%', :search, '%')))
+    	    ORDER BY j.postedDate DESC
+    	""")
+    	Page<Long> findJobIdsForManagement(
+    	    @Param("search") String search,
+    	    Pageable pageable
+    	);
+    @Query("""
+    	    SELECT DISTINCT j
+    	    FROM Job j
+    	    LEFT JOIN FETCH j.locations
+    	    LEFT JOIN FETCH j.educationLevels
+    	    WHERE j.id IN :ids
+    	""")
+    	List<Job> findJobsWithDetails(@Param("ids") List<Long> ids);
+
 
 
 }

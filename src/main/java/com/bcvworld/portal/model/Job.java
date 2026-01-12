@@ -112,6 +112,7 @@ public class Job {
     private String listingStatus;
 
     private boolean isActive = true;
+    
     private String referralCode;
 
     private Integer viewCount = 0;

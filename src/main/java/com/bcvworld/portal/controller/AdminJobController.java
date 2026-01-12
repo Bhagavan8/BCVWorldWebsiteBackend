@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.CompanyLogo;
 import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.repository.CompanyLogoRepository;
@@ -61,8 +62,7 @@ public class AdminJobController {
     }
     
     @GetMapping("/management")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Page<Job> getJobsForManagement(
+    public Page<JobResponse> getJobsForManagement(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String search) {
