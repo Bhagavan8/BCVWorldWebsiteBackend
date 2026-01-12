@@ -46,17 +46,66 @@ public class PortalJobService {
 	            .map(job -> {
 	                JobResponse dto = new JobResponse();
 
+	                // ========================
+	                // IDENTIFIERS
+	                // ========================
 	                dto.setId(job.getId());
 	                dto.setJobId(job.getJobId());
+	                dto.setCompanyId(job.getCompanyId());
+
+	                // ========================
+	                // JOB BASIC DETAILS
+	                // ========================
 	                dto.setJobTitle(job.getJobTitle());
 	                dto.setJobCategory(job.getJobCategory());
 	                dto.setJobType(job.getJobType());
+	                dto.setEmploymentType(job.getEmploymentType());
+	                dto.setExperienceRequired(job.getExperienceRequired());
+	                dto.setNoticePeriod(job.getNoticePeriod());
+	                dto.setSalaryRange(job.getSalary());
+
+	                // ========================
+	                // COMPANY DETAILS
+	                // ========================
 	                dto.setCompanyName(job.getCompanyName());
-	                dto.setSalary(job.getSalary());
+	                dto.setCompanyWebsite(job.getCompanyWebsite());
+	                dto.setAboutCompany(job.getAboutCompany());
+	                dto.setCompanyLogoUrl(job.getLogoUrl());
+
+	                // ========================
+	                // JOB CONTENT
+	                // ========================
+	                dto.setDescription(job.getDescription());
+	                dto.setDetails(job.getDetails());
+	                dto.setQualifications(job.getQualifications());
+	                dto.setSkills(job.getSkills());
+	                dto.setWalkinDetails(job.getWalkinDetails());
+
+	                // ========================
+	                // APPLICATION DETAILS
+	                // ========================
+	                dto.setApplicationMethod(job.getApplicationMethod());
+	                dto.setApplicationEmail(job.getApplicationEmail());
+	                dto.setApplicationLink(job.getApplicationLink());
+	                dto.setReferralCode(job.getReferralCode());
+
+	                // ========================
+	                // STATUS & META
+	                // ========================
+	                dto.setIsActive(job.isActive());
+	                dto.setListingStatus(job.getListingStatus());
+	                dto.setPostedDate(job.getPostedDate());
+	                dto.setLastDateToApply(job.getLastDateToApply());
+
+	                // ========================
+	                // COUNTS
+	                // ========================
 	                dto.setViewCount(job.getViewCount());
 	                dto.setLikeCount(job.getLikeCount());
 
-	                // ✅ CONVERT Set → List
+	                // ========================
+	                // COLLECTIONS (Set → List)
+	                // ========================
 	                dto.setLocations(
 	                        job.getLocations() == null
 	                                ? List.of()
@@ -68,9 +117,6 @@ public class PortalJobService {
 	                                ? List.of()
 	                                : new ArrayList<>(job.getEducationLevels())
 	                );
-
-	                dto.setPostedDate(job.getPostedDate());
-	                dto.setLastDateToApply(job.getLastDateToApply());
 
 	                return dto;
 	            })
@@ -153,19 +199,82 @@ public class PortalJobService {
 
 	    JobDetailResponse dto = new JobDetailResponse();
 
+	    // ========================
+	    // IDENTIFIERS
+	    // ========================
 	    dto.setId(job.getId());
 	    dto.setJobId(job.getJobId());
+	    dto.setCompanyId(job.getCompanyId());
+
+	    // ========================
+	    // JOB BASIC DETAILS
+	    // ========================
 	    dto.setJobTitle(job.getJobTitle());
-	    dto.setCompanyName(job.getCompanyName());
-	    dto.setDescription(job.getDescription());
+	    dto.setJobCategory(job.getJobCategory());
+	    dto.setJobType(job.getJobType());
+	    dto.setEmploymentType(job.getEmploymentType());
+	    dto.setExperienceRequired(job.getExperienceRequired());
+	    dto.setNoticePeriod(job.getNoticePeriod());
 	    dto.setSalary(job.getSalary());
+
+	    // ========================
+	    // COMPANY DETAILS
+	    // ========================
+	    dto.setCompanyName(job.getCompanyName());
+	    dto.setCompanyWebsite(job.getCompanyWebsite());
+	    dto.setCompanyLogoUrl(job.getLogoUrl());
+	    dto.setUseExistingCompany(job.isUseExistingCompany());
+	    dto.setAboutCompany(job.getAboutCompany());
+
+	    // ========================
+	    // JOB CONTENT
+	    // ========================
+	    dto.setDescription(job.getDescription());
+	    dto.setDetails(job.getDetails());
+	    dto.setSkills(job.getSkills());
+	    dto.setQualifications(job.getQualifications());
+	    dto.setWalkinDetails(job.getWalkinDetails());
+
+	    // ========================
+	    // APPLICATION DETAILS
+	    // ========================
+	    dto.setApplicationMethod(job.getApplicationMethod());
+	    dto.setApplicationEmail(job.getApplicationEmail());
+	    dto.setApplicationLink(job.getApplicationLink());
+	    dto.setReferralCode(job.getReferralCode());
+
+	    // ========================
+	    // STATUS & META
+	    // ========================
+	    dto.setListingStatus(job.getListingStatus());
+	    dto.setActive(job.isActive());
+	    dto.setPostedDate(job.getPostedDate());
+	    dto.setLastDateToApply(job.getLastDateToApply());
+
+	    // ========================
+	    // COUNTS
+	    // ========================
 	    dto.setViewCount(job.getViewCount());
 	    dto.setLikeCount(job.getLikeCount());
+	    dto.setLiked(job.isLiked());
 
-	    dto.setLocations(new ArrayList<>(job.getLocations()));
-	    dto.setEducationLevels(new ArrayList<>(job.getEducationLevels()));
+	    // ========================
+	    // COLLECTIONS (Set → List)
+	    // ========================
+	    dto.setLocations(
+	            job.getLocations() == null
+	                    ? List.of()
+	                    : new ArrayList<>(job.getLocations())
+	    );
+
+	    dto.setEducationLevels(
+	            job.getEducationLevels() == null
+	                    ? List.of()
+	                    : new ArrayList<>(job.getEducationLevels())
+	    );
 
 	    return dto;
 	}
+
 
 }

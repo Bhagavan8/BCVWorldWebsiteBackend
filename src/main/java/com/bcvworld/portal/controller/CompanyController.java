@@ -2,6 +2,8 @@ package com.bcvworld.portal.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -24,43 +26,49 @@ import com.bcvworld.portal.repository.CompanyRepository;
 @RequestMapping("/api/companies")
 public class CompanyController {
 
-    private final CompanyRepository companyRepository;
-    private final CompanyLogoRepository companyLogoRepository;
+	private final CompanyRepository companyRepository;
+	private final CompanyLogoRepository companyLogoRepository;
 
-    public CompanyController(CompanyRepository companyRepository, CompanyLogoRepository companyLogoRepository) {
-        this.companyRepository = companyRepository;
-        this.companyLogoRepository = companyLogoRepository;
-    }
+	public CompanyController(CompanyRepository companyRepository, CompanyLogoRepository companyLogoRepository) {
+		this.companyRepository = companyRepository;
+		this.companyLogoRepository = companyLogoRepository;
+	}
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Company>> search(@RequestParam("q") String q) {
-        return ResponseEntity.ok(companyRepository.findByNameContainingIgnoreCase(q));
-    }
+	@GetMapping("/search")
+	public ResponseEntity<List<Company>> search(@RequestParam("q") String q) {
+		return ResponseEntity.ok(companyRepository.findByNameContainingIgnoreCase(q));
+	}
 
-    @PostMapping
-    public ResponseEntity<Company> create(@RequestBody Company company) {
-        return ResponseEntity.ok(companyRepository.save(company));
-    }
+	@PostMapping
+	public ResponseEntity<Company> create(@RequestBody Company company) {
+		return ResponseEntity.ok(companyRepository.save(company));
+	}
 
-    @PostMapping("/upload-logo")
-    public ResponseEntity<?> uploadLogo(@RequestParam("file") MultipartFile file) throws IOException {
-        CompanyLogo logo = new CompanyLogo(file.getBytes(), file.getContentType());
-        logo = companyLogoRepository.save(logo);
-        
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/companies/logos/")
-                .path(logo.getId().toString())
-                .toUriString();
-                
-        return ResponseEntity.ok(java.util.Map.of("url", url));
-    }
-    
-    @GetMapping("/logos/{id}")
-    public ResponseEntity<byte[]> getLogo(@PathVariable Long id) {
-        return companyLogoRepository.findById(id)
-                .map(logo -> ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, logo.getContentType())
-                        .body(logo.getData()))
-                .orElse(ResponseEntity.notFound().build());
-    }
+	@PostMapping(value = "/upload-logo", consumes = "multipart/form-data")
+	public ResponseEntity<?> uploadLogo(@RequestParam("file") MultipartFile file) throws IOException {
+
+		if (file.isEmpty()) {
+			return ResponseEntity.badRequest().body("File is required");
+		}
+
+		CompanyLogo logo = new CompanyLogo(file.getBytes(), file.getContentType());
+
+		logo = companyLogoRepository.save(logo);
+
+		String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/companies/logos/")
+				.path(logo.getId().toString()).toUriString();
+
+		return ResponseEntity.ok(Map.of("id", logo.getId(), "url", url));
+	}
+
+	// =========================
+	// FETCH LOGO
+	// =========================
+	@GetMapping("/logos/{id}")
+	public ResponseEntity<byte[]> getLogo(@PathVariable Long id) {
+
+		return companyLogoRepository.findById(id).map(logo -> ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_TYPE, logo.getContentType()).body(logo.getData()))
+				.orElseGet(() -> ResponseEntity.notFound().build());
+	}
 }

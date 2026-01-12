@@ -2,8 +2,8 @@ package com.bcvworld.portal.controller;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bcvworld.portal.model.CompanyLogo;
 import com.bcvworld.portal.model.Job;
+import com.bcvworld.portal.repository.CompanyLogoRepository;
 import com.bcvworld.portal.service.AdminJobService;
 
 @RestController
@@ -27,12 +29,25 @@ public class AdminJobController {
 
     @Autowired
     private AdminJobService jobService;
+    
+    @Autowired
+    private CompanyLogoRepository companyLogoRepository;
 
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
-        return ResponseEntity.ok(jobService.saveJob(job));
-    }
+        // Logic to copy Blob from CompanyLogo table to Job table
+        if (job.getCompanyLogoId() != null) {
+            CompanyLogo logo = companyLogoRepository.findById(job.getCompanyLogoId()).orElse(null);
+            if (logo != null) {
+                job.setCompanyLogo(logo.getData()); // Copy the blob data
+            }
+        }
 
+        // Existing save logic
+        Job savedJob = jobService.saveJob(job);
+        return ResponseEntity.ok(savedJob);
+    }
+    
     @GetMapping
     public ResponseEntity<List<Job>> getAllJobs() {
         return ResponseEntity.ok(jobService.getAllJobs());

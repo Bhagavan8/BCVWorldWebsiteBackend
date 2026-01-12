@@ -51,6 +51,9 @@ public class Job {
 
     @Column(name = "company_logo_url")
     private String logoUrl;
+    
+    @Column(name = "company_logo_id")
+    private Long companyLogoId; 
 
     @Lob
     private String aboutCompany;
@@ -72,6 +75,10 @@ public class Job {
 
     private boolean useExistingCompany;
     private Long companyId;
+    
+    @Lob
+    @Column(name = "company_logo", columnDefinition = "LONGBLOB") // For MySQL
+    private byte[] companyLogo;
 
     // ✅ FETCHED BY JOIN
     @ElementCollection
@@ -379,6 +386,22 @@ public class Job {
 
 	public void setLiked(boolean isLiked) {
 		this.isLiked = isLiked;
+	}
+
+	public byte[] getCompanyLogo() {
+		return companyLogo;
+	}
+
+	public void setCompanyLogo(byte[] companyLogo) {
+		this.companyLogo = companyLogo;
+	}
+
+	public Long getCompanyLogoId() {
+		return companyLogoId;
+	}
+
+	public void setCompanyLogoId(Long companyLogoId) {
+		this.companyLogoId = companyLogoId;
 	}
     
 }

@@ -3,8 +3,9 @@ package com.bcvworld.portal.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "company_logos")
+@Table(name = "company_logo")
 public class CompanyLogo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,10 +14,14 @@ public class CompanyLogo {
     @Column(name = "data", columnDefinition = "LONGBLOB")
     private byte[] data;
 
+    @Column(name = "content_type", nullable = false)
     private String contentType;
 
-    public CompanyLogo() {}
+    // ✅ REQUIRED BY HIBERNATE
+    protected CompanyLogo() {
+    }
 
+    // ✅ USED BY CONTROLLER
     public CompanyLogo(byte[] data, String contentType) {
         this.data = data;
         this.contentType = contentType;
@@ -26,23 +31,11 @@ public class CompanyLogo {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public byte[] getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
     public String getContentType() {
         return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
     }
 }
