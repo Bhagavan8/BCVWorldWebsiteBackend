@@ -486,3 +486,456 @@
 2026-01-13T14:42:35.651+05:30  INFO 17024 --- [BCVWorldPortal] [http-nio-8081-exec-8] c.b.p.controller.PortalJobController     : Fetching all jobs
 2026-01-13T14:42:35.679+05:30 DEBUG 17024 --- [BCVWorldPortal] [http-nio-8081-exec-8] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
 2026-01-13T14:42:36.941+05:30 DEBUG 17024 --- [BCVWorldPortal] [http-nio-8081-exec-10] org.hibernate.SQL                        : select cl1_0.id,cl1_0.content_type,cl1_0.data from company_logo cl1_0 where cl1_0.id=?
+2026-01-13T15:24:28.376+05:30  INFO 27896 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : Starting BcvWorldPortalApplication using Java 21.0.9 with PID 27896 (D:\BCVWorld.Portal\BCVWorldPortal\target\classes started by Bhagavan in D:\BCVWorld.Portal\BCVWorldPortal)
+2026-01-13T15:24:28.378+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-13T15:24:28.380+05:30  INFO 27896 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : The following 1 profile is active: "prod"
+2026-01-13T15:24:29.695+05:30  INFO 27896 --- [BCVWorldPortal] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13T15:24:29.862+05:30  INFO 27896 --- [BCVWorldPortal] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 149 ms. Found 10 JPA repository interfaces.
+2026-01-13T15:24:31.035+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-13T15:24:31.070+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-13T15:24:31.071+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-13T15:24:31.229+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-13T15:24:31.231+05:30  INFO 27896 --- [BCVWorldPortal] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2758 ms
+2026-01-13T15:24:31.355+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] com.bcvworld.portal.JwtAuthFilter        : Filter 'jwtAuthFilter' configured for use
+2026-01-13T15:24:31.655+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13T15:24:31.846+05:30  INFO 27896 --- [BCVWorldPortal] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-01-13T15:24:31.944+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-13T15:24:32.627+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13T15:24:32.702+05:30  INFO 27896 --- [BCVWorldPortal] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-13T15:24:33.089+05:30  INFO 27896 --- [BCVWorldPortal] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@184de357
+2026-01-13T15:24:33.094+05:30  INFO 27896 --- [BCVWorldPortal] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-13T15:24:33.241+05:30  WARN 27896 --- [BCVWorldPortal] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-13T15:24:33.242+05:30  WARN 27896 --- [BCVWorldPortal] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-01-13T15:24:35.535+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-13T15:24:35.694+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] org.hibernate.SQL                        : alter table jobs modify column about_company tinytext
+2026-01-13T15:24:35.909+05:30  WARN 27896 --- [BCVWorldPortal] [main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table jobs modify column about_company tinytext" via JDBC [Data truncation: Data too long for column 'about_company' at row 1]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table jobs modify column about_company tinytext" via JDBC [Data truncation: Data too long for column 'about_company' at row 1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'about_company' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:104) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 38 common frames omitted
+
+2026-01-13T15:24:35.920+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] org.hibernate.SQL                        : alter table jobs modify column description tinytext
+2026-01-13T15:24:35.983+05:30  WARN 27896 --- [BCVWorldPortal] [main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table jobs modify column description tinytext" via JDBC [Data truncation: Data too long for column 'description' at row 1]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table jobs modify column description tinytext" via JDBC [Data truncation: Data too long for column 'description' at row 1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'description' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:104) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 38 common frames omitted
+
+2026-01-13T15:24:35.984+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] org.hibernate.SQL                        : alter table jobs modify column qualifications tinytext
+2026-01-13T15:24:36.046+05:30  WARN 27896 --- [BCVWorldPortal] [main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table jobs modify column qualifications tinytext" via JDBC [Data truncation: Data too long for column 'qualifications' at row 1]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table jobs modify column qualifications tinytext" via JDBC [Data truncation: Data too long for column 'qualifications' at row 1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'qualifications' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:104) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 38 common frames omitted
+
+2026-01-13T15:24:36.047+05:30 DEBUG 27896 --- [BCVWorldPortal] [main] org.hibernate.SQL                        : alter table jobs modify column skills tinytext
+2026-01-13T15:24:36.131+05:30  WARN 27896 --- [BCVWorldPortal] [main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table jobs modify column skills tinytext" via JDBC [Data truncation: Data too long for column 'skills' at row 1]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table jobs modify column skills tinytext" via JDBC [Data truncation: Data too long for column 'skills' at row 1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:333) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'skills' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:104) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 38 common frames omitted
+
+2026-01-13T15:24:36.285+05:30  INFO 27896 --- [BCVWorldPortal] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13T15:24:37.032+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-13T15:24:39.354+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@efc5686, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4907b755, org.springframework.security.web.context.SecurityContextHolderFilter@eeb1cac, org.springframework.security.web.header.HeaderWriterFilter@12e37ab2, org.springframework.web.filter.CorsFilter@72dc7b05, org.springframework.security.web.authentication.logout.LogoutFilter@2dda3edf, com.bcvworld.portal.JwtAuthFilter@481558ce, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2c03678, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1bf6c568, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@73e45afe, org.springframework.security.web.session.SessionManagementFilter@55002de6, org.springframework.security.web.access.ExceptionTranslationFilter@2c34fb51, org.springframework.security.web.access.intercept.AuthorizationFilter@315edc50]
+2026-01-13T15:24:39.861+05:30  INFO 27896 --- [BCVWorldPortal] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2026-01-13T15:24:39.874+05:30  INFO 27896 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : Started BcvWorldPortalApplication in 12.325 seconds (process running for 13.418)
+2026-01-13T15:36:11.503+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-13T15:36:11.503+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-13T15:36:11.506+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-01-13T15:36:11.616+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T15:36:11.836+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T15:36:12.125+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-2] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T15:36:12.133+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-2] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T15:44:30.407+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-5] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T15:44:30.413+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-5] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T15:44:30.436+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-6] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T15:44:30.440+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-6] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T15:59:57.172+05:30  WARN 27896 --- [BCVWorldPortal] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m23s484ms68µs600ns).
+2026-01-13T16:32:34.231+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-9] org.hibernate.SQL                        : select cl1_0.id,cl1_0.content_type,cl1_0.data from company_logo cl1_0 where cl1_0.id=?
+2026-01-13T16:41:05.338+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T16:41:05.361+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-1] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T16:41:05.431+05:30  INFO 27896 --- [BCVWorldPortal] [http-nio-8081-exec-2] c.b.p.controller.PortalJobController     : Fetching all jobs
+2026-01-13T16:41:05.438+05:30 DEBUG 27896 --- [BCVWorldPortal] [http-nio-8081-exec-2] org.hibernate.SQL                        : select distinct j1_0.id,j1_0.about_company,j1_0.application_email,j1_0.application_link,j1_0.application_method,j1_0.company_id,j1_0.company_logo,j1_0.company_logo_id,j1_0.company_name,j1_0.company_website,j1_0.description,j1_0.details,el1_0.job_id,el1_0.education_level,j1_0.employment_type,j1_0.experience_required,j1_0.is_active,j1_0.job_category,j1_0.job_id,j1_0.job_title,j1_0.job_type,j1_0.last_date_to_apply,j1_0.like_count,j1_0.listing_status,l1_0.job_id,l1_0.location,j1_0.company_logo_url,j1_0.notice_period,j1_0.posted_date,j1_0.qualifications,j1_0.referral_code,j1_0.salary_range,j1_0.skills,j1_0.use_existing_company,j1_0.view_count,j1_0.walkin_details from jobs j1_0 left join job_locations l1_0 on j1_0.id=l1_0.job_id left join job_education_levels el1_0 on j1_0.id=el1_0.job_id where j1_0.is_active=1
+2026-01-13T16:58:59.426+05:30  INFO 27896 --- [BCVWorldPortal] [RMI TCP Connection(100)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2026-01-13T16:58:59.599+05:30  INFO 27896 --- [BCVWorldPortal] [RMI TCP Connection(100)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-13T16:58:59.641+05:30  INFO 27896 --- [BCVWorldPortal] [RMI TCP Connection(100)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-01-13T16:58:59.650+05:30  INFO 27896 --- [BCVWorldPortal] [RMI TCP Connection(100)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-01-13T16:59:03.356+05:30  INFO 35524 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : Starting BcvWorldPortalApplication using Java 21.0.9 with PID 35524 (D:\BCVWorld.Portal\BCVWorldPortal\target\classes started by Bhagavan in D:\BCVWorld.Portal\BCVWorldPortal)
+2026-01-13T16:59:03.358+05:30 DEBUG 35524 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : Running with Spring Boot v3.2.1, Spring v6.1.2
+2026-01-13T16:59:03.359+05:30  INFO 35524 --- [BCVWorldPortal] [main] c.b.portal.BcvWorldPortalApplication     : The following 1 profile is active: "prod"
+2026-01-13T16:59:04.518+05:30  INFO 35524 --- [BCVWorldPortal] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-13T16:59:04.679+05:30  INFO 35524 --- [BCVWorldPortal] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 148 ms. Found 10 JPA repository interfaces.
+2026-01-13T16:59:05.638+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-01-13T16:59:05.662+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-13T16:59:05.662+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.17]
+2026-01-13T16:59:05.776+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-13T16:59:05.776+05:30  INFO 35524 --- [BCVWorldPortal] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2338 ms
+2026-01-13T16:59:05.860+05:30 DEBUG 35524 --- [BCVWorldPortal] [main] com.bcvworld.portal.JwtAuthFilter        : Filter 'jwtAuthFilter' configured for use
+2026-01-13T16:59:06.058+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-13T16:59:06.203+05:30  INFO 35524 --- [BCVWorldPortal] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-01-13T16:59:06.276+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-13T16:59:06.765+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-13T16:59:06.822+05:30  INFO 35524 --- [BCVWorldPortal] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-13T16:59:07.882+05:30 ERROR 35524 --- [BCVWorldPortal] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Exception during pool initialization.
+
+java.sql.SQLNonTransientConnectionException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Failed to parse the host:port pair 'localhost:MYSQLPORT'.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:111) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:98) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:90) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:64) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:74) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:79) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:131) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:211) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-5.0.1.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:428) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:276) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:107) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:223) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:191) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:170) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Failed to parse the host:port pair 'localhost:MYSQLPORT'.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:62) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	... 47 common frames omitted
+Caused by: com.mysql.cj.exceptions.WrongArgumentException: Failed to parse the host:port pair 'localhost:MYSQLPORT'.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502) ~[na:na]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486) ~[na:na]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:62) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseHostPortPair(ConnectionUrlParser.java:500) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrlParser.buildHostInfoResortingToGenericSyntaxParser(ConnectionUrlParser.java:438) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseAuthoritySegment(ConnectionUrlParser.java:270) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseAuthoritySection(ConnectionUrlParser.java:184) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrlParser.getHosts(ConnectionUrlParser.java:651) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrl$Type.getConnectionUrlInstance(ConnectionUrl.java:194) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.conf.ConnectionUrl.getConnectionUrlInstance(ConnectionUrl.java:280) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:185) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	... 46 common frames omitted
+Caused by: java.lang.NumberFormatException: For input string: "MYSQLPORT"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67) ~[na:na]
+	at java.base/java.lang.Integer.parseInt(Integer.java:662) ~[na:na]
+	at java.base/java.lang.Integer.parseInt(Integer.java:778) ~[na:na]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseHostPortPair(ConnectionUrlParser.java:498) ~[mysql-connector-j-8.1.0.jar:8.1.0]
+	... 53 common frames omitted
+
+2026-01-13T16:59:07.912+05:30  WARN 35524 --- [BCVWorldPortal] [main] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+java.lang.NullPointerException: Cannot invoke "org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(java.sql.SQLException, String)" because the return value of "org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.sqlExceptionHelper()" is null
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:276) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:107) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:223) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:191) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:170) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+
+2026-01-13T16:59:07.915+05:30 ERROR 35524 --- [BCVWorldPortal] [main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+2026-01-13T16:59:07.916+05:30  WARN 35524 --- [BCVWorldPortal] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+2026-01-13T16:59:07.919+05:30  INFO 35524 --- [BCVWorldPortal] [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-01-13T16:59:07.938+05:30  INFO 35524 --- [BCVWorldPortal] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-13T16:59:07.966+05:30 ERROR 35524 --- [BCVWorldPortal] [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1773) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.2.jar:6.1.2]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358) ~[spring-boot-3.2.1.jar:3.2.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347) ~[spring-boot-3.2.1.jar:3.2.1]
+	at com.bcvworld.portal.BcvWorldPortalApplication.main(BcvWorldPortalApplication.java:10) ~[classes/:na]
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:276) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:223) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:191) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:170) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820) ~[spring-beans-6.1.2.jar:6.1.2]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769) ~[spring-beans-6.1.2.jar:6.1.2]
+	... 16 common frames omitted
+Caused by: org.hibernate.HibernateException: Unable to determine Dialect without JDBC metadata (please set 'jakarta.persistence.jdbc.url' for common cases or 'hibernate.dialect' when a custom Dialect implementation must be provided)
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:191) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:87) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentWithDefaults(JdbcEnvironmentInitiator.java:143) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:348) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:107) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:129) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.4.1.Final.jar:6.4.1.Final]
+	... 31 common frames omitted
+
