@@ -20,7 +20,8 @@ public class CorsConfig {
                 "http://localhost:5173",
                 "http://localhost:5174",
                 "https://portal.bcvworld.com",
-                "https://bcvworld.com"
+                "https://bcvworld.com",
+                "https://jobs.bcvworld.com"
         ));
 
         config.setAllowedMethods(List.of(
