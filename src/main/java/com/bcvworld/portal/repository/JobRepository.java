@@ -76,5 +76,4 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     	List<Job> findJobsWithDetails(@Param("ids") List<Long> ids);
 
 
-
 }
