@@ -38,7 +38,7 @@ public class AdminAuthService {
         user.setProvider("local");
         user.setRole(
                 user.getRole() == null || user.getRole().isBlank()
-                        ? "ADMIN"
+                        ? "USER"
                         : user.getRole()
         );
 
