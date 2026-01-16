@@ -70,7 +70,9 @@ public class Job {
     private String qualifications;
 
     @Lob
+    @Column(name = "walkin_details", columnDefinition = "LONGTEXT")
     private String walkinDetails;
+
 
     private boolean useExistingCompany;
     private Long companyId;
