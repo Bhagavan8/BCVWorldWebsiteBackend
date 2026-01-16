@@ -1,9 +1,11 @@
 package com.bcvworld.portal.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.bcvworld.portal.model.User;
 import com.bcvworld.portal.repository.UserRepository;
@@ -91,5 +93,26 @@ public class AdminAuthService {
                     u.setCreatedAt(LocalDateTime.now());
                     return userRepository.save(u);
                 });
+    }
+    
+    public User upsertSocialUser(String email, String name, String provider, String providerId) {
+        Optional<User> existingOpt = userRepository.findByEmail(email);
+        if (existingOpt.isPresent()) {
+            User u = existingOpt.get();
+            u.setProvider(provider);
+            u.setProviderId(providerId);
+            if (name != null && !name.isBlank()) u.setName(name);
+            return userRepository.save(u);
+        }
+        User u = new User();
+        u.setEmail(email);
+        u.setName(name);
+        u.setProvider(provider);
+        u.setProviderId(providerId);
+        u.setRole("USER");
+        u.setCreatedAt(LocalDateTime.now());
+        String randomSecret = UUID.randomUUID().toString();
+        u.setPassword(passwordEncoder.encode(randomSecret));
+        return userRepository.save(u);
     }
 }

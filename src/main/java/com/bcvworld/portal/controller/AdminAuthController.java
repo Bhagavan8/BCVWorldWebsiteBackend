@@ -1,14 +1,22 @@
 package com.bcvworld.portal.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.bcvworld.portal.JwtUtil;
 import com.bcvworld.portal.model.User;
 import com.bcvworld.portal.service.AdminAuthService;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -72,25 +80,31 @@ public class AdminAuthController {
 	// ================= SOCIAL LOGIN =================
 	@PostMapping("/social")
 	public ResponseEntity<?> socialLogin(@RequestBody Map<String, String> payload) {
+	    String provider = payload.get("provider");
+	    String idToken = payload.get("idToken");
+	    if (provider == null || idToken == null) {
+	        return ResponseEntity.badRequest().body(Map.of("message", "Invalid social login payload"));
+	    }
 
-		try {
-			String email = payload.get("email");
-			String name = payload.get("name");
-			String provider = payload.get("provider");
+	    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
+	            .setAudience(List.of("1083295808227-qso07ckp6d725qlq53j7n9satpe9grgm.apps.googleusercontent.com"))
+	            .build();
 
-			if (email == null || provider == null) {
-				return ResponseEntity.badRequest().body(Map.of("message", "Invalid social login payload"));
-			}
+	    try {
+	        GoogleIdToken token = verifier.verify(idToken);
+	        if (token == null) {
+	            return ResponseEntity.badRequest().body(Map.of("message", "Invalid Google token"));
+	        }
+	        GoogleIdToken.Payload p = token.getPayload();
+	        String email = p.getEmail();
+	        String name = (String) p.get("name");
+	        String providerId = p.getSubject();
 
-			User user = authService.socialLogin(email, name, provider);
-
-			String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
-
-			return ResponseEntity.ok(
-					Map.of("token", token, "role", user.getRole(), "email", user.getEmail(), "name", user.getName()));
-
-		} catch (RuntimeException e) {
-			return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-		}
+	        User user = authService.upsertSocialUser(email, name, provider, providerId);
+	        String jwt = jwtUtil.generateToken(user.getEmail(), user.getRole());
+	        return ResponseEntity.ok(Map.of("token", jwt, "role", user.getRole(), "email", user.getEmail(), "name", user.getName()));
+	    } catch (Exception e) {
+	        return ResponseEntity.badRequest().body(Map.of("message", "Social login failed"));
+	    }
 	}
 }
