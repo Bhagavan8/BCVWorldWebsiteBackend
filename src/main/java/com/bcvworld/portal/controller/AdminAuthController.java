@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bcvworld.portal.JwtUtil;
+import com.bcvworld.portal.dto.ApiResponse;
+import com.bcvworld.portal.dto.ForgotPasswordRequest;
+import com.bcvworld.portal.dto.ResetPasswordRequest;
 import com.bcvworld.portal.model.User;
 import com.bcvworld.portal.service.AdminAuthService;
+import com.bcvworld.portal.service.PasswordResetService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/admin/auth", produces = "application/json")
@@ -26,10 +31,14 @@ public class AdminAuthController {
 
 	private final AdminAuthService authService;
 	private final JwtUtil jwtUtil;
+	private final PasswordResetService passwordResetService;
 
-	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil) {
+    
+
+	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil,PasswordResetService passwordResetService) {
 		this.authService = authService;
 		this.jwtUtil = jwtUtil;
+		this.passwordResetService = passwordResetService;
 	}
 
 	// ================= REGISTER =================
@@ -107,4 +116,29 @@ public class AdminAuthController {
 	        return ResponseEntity.badRequest().body(Map.of("message", "Social login failed"));
 	    }
 	}
+	 @PostMapping("/forgot-password")
+	    public ResponseEntity<ApiResponse> forgotPassword(
+	            @Valid @RequestBody ForgotPasswordRequest request) {
+
+	        boolean exists = passwordResetService.verifyEmail(request);
+	        if (!exists) {
+	            ApiResponse body = new ApiResponse(false, "Account not found for this email.");
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+	        }
+	        ApiResponse body = new ApiResponse(true, "Email verified. You can now reset your password.");
+	        return ResponseEntity.ok(body);
+	    }
+
+	    @PostMapping("/reset-password")
+	    public ResponseEntity<ApiResponse> resetPassword(
+	            @Valid @RequestBody ResetPasswordRequest request) {
+
+	        boolean updated = passwordResetService.resetPassword(request);
+	        if (!updated) {
+	            ApiResponse body = new ApiResponse(false, "Account not found for this email.");
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+	        }
+	        ApiResponse body = new ApiResponse(true, "Password updated successfully.");
+	        return ResponseEntity.ok(body);
+	    }
 }
