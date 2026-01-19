@@ -118,6 +118,10 @@ public class Job {
 
     private Integer viewCount = 0;
     private Integer likeCount = 0;
+    @Column(name = "postedByName", nullable = false)
+    private String postedByName;
+    @Column(name = "postedBy", nullable = false)
+    private String postedBy;
 
     @Transient
     private boolean isLiked = false;
@@ -404,6 +408,22 @@ public class Job {
 
 	public void setCompanyLogoId(Long companyLogoId) {
 		this.companyLogoId = companyLogoId;
+	}
+
+	public String getPostedByName() {
+		return postedByName;
+	}
+
+	public void setPostedByName(String postedByName) {
+		this.postedByName = postedByName;
+	}
+
+	public String getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(String postedBy) {
+		this.postedBy = postedBy;
 	}
     
 }

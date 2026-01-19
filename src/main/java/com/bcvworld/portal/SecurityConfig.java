@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/companies/**").permitAll()
                 .requestMatchers("/api/contact").permitAll()  
                 .requestMatchers("/api/suggestion").permitAll()
+                .requestMatchers("/api/admin/finance").permitAll()
 
                 // 🔐 ADMIN
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")

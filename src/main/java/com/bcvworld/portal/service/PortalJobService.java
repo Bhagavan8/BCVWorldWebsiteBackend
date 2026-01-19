@@ -69,6 +69,8 @@ public class PortalJobService {
 	                dto.setExperienceRequired(job.getExperienceRequired());
 	                dto.setNoticePeriod(job.getNoticePeriod());
 	                dto.setSalaryRange(job.getSalary());
+	                dto.setPostedBy(job.getPostedBy());
+	        	    dto.setPostedByName(job.getPostedByName());
 
 	                // ========================
 	                // COMPANY DETAILS
@@ -242,6 +244,8 @@ public class PortalJobService {
 	    dto.setExperienceRequired(job.getExperienceRequired());
 	    dto.setNoticePeriod(job.getNoticePeriod());
 	    dto.setSalary(job.getSalary());
+	    dto.setPostedBy(job.getPostedBy());
+	    dto.setPostedByName(job.getPostedByName());
 
 	    // ========================
 	    // COMPANY DETAILS

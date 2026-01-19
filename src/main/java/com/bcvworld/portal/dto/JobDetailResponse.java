@@ -22,6 +22,8 @@ public class JobDetailResponse {
     private String experienceRequired;
     private String noticePeriod;
     private String salary;
+    private String postedByName;
+    private String postedBy;
 
     // ========================
     // COMPANY DETAILS
@@ -337,4 +339,21 @@ public class JobDetailResponse {
     public void setEducationLevels(List<String> educationLevels) {
         this.educationLevels = educationLevels;
     }
+
+	public String getPostedByName() {
+		return postedByName;
+	}
+
+	public void setPostedByName(String postedByName) {
+		this.postedByName = postedByName;
+	}
+
+	public String getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(String postedBy) {
+		this.postedBy = postedBy;
+	}
+    
 }
