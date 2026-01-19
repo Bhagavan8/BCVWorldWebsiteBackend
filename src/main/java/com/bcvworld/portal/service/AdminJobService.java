@@ -56,6 +56,13 @@ public class AdminJobService {
 			throw new RuntimeException("Application link or email is required");
 		}
 		job.setActive(true);
+		
+		if(job.getPostedBy() == null || job.getPostedBy().isBlank()) {
+			job.setPostedBy("help.bcvworld@bcvworld.com");
+		}
+		if(job.getPostedByName() == null || job.getPostedByName().isBlank()) {
+			job.setPostedByName("BCVWorld Admin");
+		}
 		return jobRepository.save(job);
 	}
 
@@ -140,4 +147,71 @@ public class AdminJobService {
 	    job.setActive(false);   // 👈 Soft delete
 	    jobRepository.save(job);
 	}
+	
+	@Transactional
+	public Job updateJob(Long id, Job request) {
+
+        Job existing = jobRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Job not found with id: " + id));
+
+        // ===== BASIC JOB INFO =====
+        existing.setJobTitle(request.getJobTitle());
+        existing.setJobCategory(request.getJobCategory());
+        existing.setJobType(request.getJobType());
+        existing.setEmploymentType(request.getEmploymentType());
+
+        // ===== COMPANY =====
+        existing.setCompanyName(request.getCompanyName());
+        existing.setCompanyWebsite(request.getCompanyWebsite());
+        existing.setAboutCompany(request.getAboutCompany());
+        existing.setUseExistingCompany(request.isUseExistingCompany());
+        existing.setCompanyId(request.getCompanyId());
+        existing.setLogoUrl(request.getLogoUrl());
+        existing.setCompanyLogoId(request.getCompanyLogoId());
+
+        // ⚠️ Only update logo if sent
+        if (request.getCompanyLogo() != null && request.getCompanyLogo().length > 0) {
+            existing.setCompanyLogo(request.getCompanyLogo());
+        }
+
+        // ===== JOB DETAILS =====
+        existing.setDescription(request.getDescription());
+        existing.setDetails(request.getDetails());
+        existing.setSkills(request.getSkills());
+        existing.setQualifications(request.getQualifications());
+        existing.setWalkinDetails(request.getWalkinDetails());
+
+        existing.setExperienceRequired(request.getExperienceRequired());
+        existing.setSalary(request.getSalary());
+        existing.setNoticePeriod(request.getNoticePeriod());
+
+        existing.setApplicationMethod(request.getApplicationMethod());
+        existing.setApplicationEmail(request.getApplicationEmail());
+        existing.setApplicationLink(request.getApplicationLink());
+
+        existing.setListingStatus(request.getListingStatus());
+        existing.setActive(request.isActive());
+        existing.setReferralCode(request.getReferralCode());
+
+        // ===== DATES =====
+        existing.setPostedDate(request.getPostedDate());
+        existing.setLastDateToApply(request.getLastDateToApply());
+
+        // ===== ELEMENT COLLECTIONS (IMPORTANT) =====
+        existing.getLocations().clear();
+        if (request.getLocations() != null) {
+            existing.getLocations().addAll(request.getLocations());
+        }
+
+        existing.getEducationLevels().clear();
+        if (request.getEducationLevels() != null) {
+            existing.getEducationLevels().addAll(request.getEducationLevels());
+        }
+
+        // ❌ DO NOT TOUCH:
+        // viewCount, likeCount, postedBy, postedByName
+
+        return jobRepository.save(existing);
+    }
 }
