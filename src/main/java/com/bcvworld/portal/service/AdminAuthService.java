@@ -48,7 +48,7 @@ public class AdminAuthService {
 
         // ✅ ALWAYS BCrypt
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
+        user.setStatus("Active");
         return userRepository.save(user);
     }
 
@@ -110,6 +110,7 @@ public class AdminAuthService {
         u.setProvider(provider);
         u.setProviderId(providerId);
         u.setRole("USER");
+        u.setStatus("Active");
         u.setCreatedAt(LocalDateTime.now());
         String randomSecret = UUID.randomUUID().toString();
         u.setPassword(passwordEncoder.encode(randomSecret));

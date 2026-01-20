@@ -3,11 +3,16 @@ package com.bcvworld.portal.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bcvworld.portal.JwtUtil;
@@ -17,6 +22,7 @@ import com.bcvworld.portal.dto.ResetPasswordRequest;
 import com.bcvworld.portal.model.User;
 import com.bcvworld.portal.service.AdminAuthService;
 import com.bcvworld.portal.service.PasswordResetService;
+import com.bcvworld.portal.service.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -32,13 +38,15 @@ public class AdminAuthController {
 	private final AdminAuthService authService;
 	private final JwtUtil jwtUtil;
 	private final PasswordResetService passwordResetService;
+	private final UserService userService;
 
     
 
-	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil,PasswordResetService passwordResetService) {
+	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil,PasswordResetService passwordResetService, UserService userService) {
 		this.authService = authService;
 		this.jwtUtil = jwtUtil;
 		this.passwordResetService = passwordResetService;
+		this.userService = userService;
 	}
 
 	// ================= REGISTER =================
@@ -140,5 +148,30 @@ public class AdminAuthController {
 	        }
 	        ApiResponse body = new ApiResponse(true, "Password updated successfully.");
 	        return ResponseEntity.ok(body);
+	    }
+	    @GetMapping
+	    public ResponseEntity<Page<User>> getAllUsers(
+	            @RequestParam(defaultValue = "0") int page,
+	            @RequestParam(defaultValue = "10") int size,
+	            @RequestParam(required = false) String search,
+	            @RequestParam(required = false) String status,
+	            @RequestParam(required = false) String role) {
+	        
+	        Page<User> users = userService.getAllUsers(page, size, search, status, role);
+	        return ResponseEntity.ok(users);
+	    }
+
+	    @PatchMapping("/{id}/status")
+	    public ResponseEntity<?> updateUserStatus(@PathVariable Long id, @RequestBody Map<String, String> payload) {
+	        String status = payload.get("status");
+	        if (status == null) {
+	            return ResponseEntity.badRequest().body("Status is required");
+	        }
+	        try {
+	            User updatedUser = userService.updateUserStatus(id, status);
+	            return ResponseEntity.ok(updatedUser);
+	        } catch (RuntimeException e) {
+	            return ResponseEntity.notFound().build();
+	        }
 	    }
 }

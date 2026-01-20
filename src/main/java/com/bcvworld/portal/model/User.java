@@ -42,11 +42,12 @@ public class User {
     
     private java.time.LocalDateTime createdAt;
     private String ipAddress;
+    private String status;
     
     public User() {
     }
 
-    public User(String email, String password, String name, String mobile, String dob, String country, String state, String city, String role) {
+    public User(String email, String password, String name, String mobile, String dob, String country, String state, String city, String role, String status) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -56,13 +57,14 @@ public class User {
         this.state = state;
         this.city = city;
         this.role = role;
+        this.status = status;
     }
     
     
 
 	public User(Long id, String email, String password, String name, String mobile, String dob, String country,
 			String state, String city, String role, String provider, String providerId, LocalDateTime createdAt,
-			String ipAddress) {
+			String ipAddress, String status) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -78,6 +80,7 @@ public class User {
 		this.providerId = providerId;
 		this.createdAt = createdAt;
 		this.ipAddress = ipAddress;
+		this.status = status;
 	}
 
 
@@ -192,6 +195,14 @@ public class User {
 
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
     
 }
