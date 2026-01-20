@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,9 @@ import com.bcvworld.portal.dto.JobDetailResponse;
 import com.bcvworld.portal.dto.JobLikeResponse;
 import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.CommentRequest;
+import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.model.JobComment;
+import com.bcvworld.portal.service.AdminJobService;
 import com.bcvworld.portal.service.PortalJobService;
 
 @RestController
@@ -28,8 +32,12 @@ public class PortalJobController {
             LoggerFactory.getLogger(PortalJobController.class);
 
     private final PortalJobService jobService;
-    public PortalJobController(PortalJobService jobService) {
+    
+    private final AdminJobService adminJobService;
+    
+    public PortalJobController(PortalJobService jobService, AdminJobService adminJobService) {
         this.jobService = jobService;
+        this.adminJobService = adminJobService;
     }
 
   
@@ -88,5 +96,12 @@ public class PortalJobController {
 
         JobComment comment = jobService.addComment(id, request.getUserId(), request.getUserName(), request.getContent());
         return ResponseEntity.ok(comment);
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateJob(
+            @PathVariable Long id,
+            @RequestBody Job job) {
+        return ResponseEntity.ok(adminJobService.updateJob(id, job));
     }
 }

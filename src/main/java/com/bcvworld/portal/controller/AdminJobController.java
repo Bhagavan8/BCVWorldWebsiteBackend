@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bcvworld.portal.dto.CompanyProjection;
 import com.bcvworld.portal.dto.JobResponse;
 import com.bcvworld.portal.model.CompanyLogo;
 import com.bcvworld.portal.model.Job;
 import com.bcvworld.portal.repository.CompanyLogoRepository;
+import com.bcvworld.portal.repository.JobRepository;
 import com.bcvworld.portal.service.AdminJobService;
 
 @RestController
@@ -34,6 +36,9 @@ public class AdminJobController {
     
     @Autowired
     private CompanyLogoRepository companyLogoRepository;
+    
+    @Autowired
+	private JobRepository jobRepository;
 
     @PostMapping
     public ResponseEntity<Job> createJob(@RequestBody Job job) {
@@ -79,6 +84,15 @@ public class AdminJobController {
         return ResponseEntity.ok().build();
     }
     
+    @GetMapping("/companies/search")
+    public ResponseEntity<List<CompanyProjection>> searchCompanies(
+            @RequestParam String q) {
+
+        return ResponseEntity.ok(
+            jobRepository.findDistinctByCompanyNameContainingIgnoreCase(q)
+        );
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateJob(
             @PathVariable Long id,
