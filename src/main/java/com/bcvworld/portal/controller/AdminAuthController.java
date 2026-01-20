@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +22,13 @@ import com.bcvworld.portal.JwtUtil;
 import com.bcvworld.portal.dto.ApiResponse;
 import com.bcvworld.portal.dto.ForgotPasswordRequest;
 import com.bcvworld.portal.dto.ResetPasswordRequest;
+import com.bcvworld.portal.model.ContactMessage;
+import com.bcvworld.portal.model.JobComment;
+import com.bcvworld.portal.model.Suggestion;
 import com.bcvworld.portal.model.User;
+import com.bcvworld.portal.repository.ContactMessageRepository;
+import com.bcvworld.portal.repository.JobCommentRepository;
+import com.bcvworld.portal.repository.SuggestionRepository;
 import com.bcvworld.portal.service.AdminAuthService;
 import com.bcvworld.portal.service.PasswordResetService;
 import com.bcvworld.portal.service.UserService;
@@ -39,15 +48,28 @@ public class AdminAuthController {
 	private final JwtUtil jwtUtil;
 	private final PasswordResetService passwordResetService;
 	private final UserService userService;
-
+    private final ContactMessageRepository messageRepository;
+    private final JobCommentRepository commentRepository;
+    private final SuggestionRepository suggestionRepository;
     
 
-	public AdminAuthController(AdminAuthService authService, JwtUtil jwtUtil,PasswordResetService passwordResetService, UserService userService) {
-		this.authService = authService;
-		this.jwtUtil = jwtUtil;
-		this.passwordResetService = passwordResetService;
-		this.userService = userService;
-	}
+    public AdminAuthController(
+            AdminAuthService authService,
+            JwtUtil jwtUtil,
+            PasswordResetService passwordResetService,
+            UserService userService,
+            JobCommentRepository commentRepository,
+            ContactMessageRepository messageRepository,
+            SuggestionRepository suggestionRepository
+    ) {
+        this.authService = authService;
+        this.jwtUtil = jwtUtil;
+        this.passwordResetService = passwordResetService;
+        this.userService = userService;
+        this.commentRepository = commentRepository;
+        this.messageRepository = messageRepository;   // ✅ MISSING LINE
+        this.suggestionRepository = suggestionRepository;
+    }
 
 	// ================= REGISTER =================
 	@PostMapping("/register")
@@ -173,5 +195,50 @@ public class AdminAuthController {
 	        } catch (RuntimeException e) {
 	            return ResponseEntity.notFound().build();
 	        }
+	    }
+	    @GetMapping("/contact-messages")
+	    public ResponseEntity<Page<ContactMessage>> getMessages(
+	            @RequestParam(defaultValue = "0") int page,
+	            @RequestParam(defaultValue = "10") int size) {
+	        Page<ContactMessage> messages = messageRepository.findAllByOrderByCreatedAtDesc(PageRequest.of(page, size));
+	        return ResponseEntity.ok(messages);
+	    }
+
+	   
+
+	    // --- Comments ---
+
+	    @GetMapping("/comments")
+	    public ResponseEntity<Page<JobComment>> getComments(
+	            @RequestParam(defaultValue = "0") int page,
+	            @RequestParam(defaultValue = "10") int size,
+	            @RequestParam(defaultValue = "") String search) {
+	        
+	        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdAt").descending());
+	        
+	        if (search == null || search.trim().isEmpty()) {
+	            return ResponseEntity.ok(commentRepository.findAll(pageRequest));
+	        } else {
+	            return ResponseEntity.ok(commentRepository.searchComments(search, pageRequest));
+	        }
+	    }
+
+	    @DeleteMapping("/comments/{id}")
+	    public ResponseEntity<?> deleteComment(@PathVariable Long id) {
+	        return commentRepository.findById(id)
+	                .map(comment -> {
+	                    commentRepository.delete(comment);
+	                    return ResponseEntity.ok().build();
+	                })
+	                .orElse(ResponseEntity.notFound().build());
+	    }
+	    
+	    @GetMapping("/suggestions")
+	    public ResponseEntity<Page<Suggestion>> getSuggestions(
+	            @RequestParam(defaultValue = "0") int page,
+	            @RequestParam(defaultValue = "10") int size) {
+	        // Fetch where type is "suggestion"
+	        Page<Suggestion> suggestions = suggestionRepository.findAllByOrderByDateDesc(PageRequest.of(page, size));
+	        return ResponseEntity.ok(suggestions);
 	    }
 }
