@@ -171,7 +171,11 @@ public class PortalJobService {
 
 	@Transactional
 	public JobLikeResponse toggleLike(Long jobId, String userId) {
+
 	    Job job = getJobById(jobId);
+
+	    // ✅ Null-safe initialization
+	    int likeCount = job.getLikeCount() == null ? 0 : job.getLikeCount();
 
 	    boolean liked;
 
@@ -180,23 +184,25 @@ public class PortalJobService {
 
 	    if (existingLike.isPresent()) {
 	        jobLikeRepository.delete(existingLike.get());
-	        job.setLikeCount(Math.max(0, job.getLikeCount() - 1));
+	        likeCount = Math.max(0, likeCount - 1);
 	        liked = false;
 	    } else {
 	        jobLikeRepository.save(new JobLike(jobId, userId));
-	        job.setLikeCount(job.getLikeCount() + 1);
+	        likeCount = likeCount + 1;
 	        liked = true;
 	    }
 
+	    job.setLikeCount(likeCount);
 	    jobRepository.save(job);
 
 	    JobLikeResponse response = new JobLikeResponse();
 	    response.setJobId(jobId);
-	    response.setLikeCount(job.getLikeCount());
+	    response.setLikeCount(likeCount);
 	    response.setLiked(liked);
 
 	    return response;
 	}
+
 
 	
 
