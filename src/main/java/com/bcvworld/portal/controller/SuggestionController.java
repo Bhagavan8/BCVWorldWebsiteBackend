@@ -35,7 +35,7 @@ public class SuggestionController {
             }
 
             // Set current date
-            suggestionRequest.setDate(LocalDateTime.now().toString());
+            suggestionRequest.setDate(LocalDateTime.now());
 
             // Save to MySQL Database
             Suggestion savedSuggestion = suggestionRepository.save(suggestionRequest);

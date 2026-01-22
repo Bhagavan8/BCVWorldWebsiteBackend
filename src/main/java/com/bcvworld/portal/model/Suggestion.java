@@ -2,7 +2,14 @@ package com.bcvworld.portal.model;
 
 
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +44,8 @@ public class Suggestion {
     private boolean agreed;
 
     @Column(name = "created_date")
-    private String date;
+    private LocalDateTime date;
+
 
 	public String getEmail() {
 		return email;
@@ -95,12 +103,14 @@ public class Suggestion {
 		this.agreed = agreed;
 	}
 
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
+
+	
     
 }

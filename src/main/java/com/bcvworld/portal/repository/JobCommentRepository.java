@@ -1,5 +1,6 @@
 package com.bcvworld.portal.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -26,5 +27,6 @@ public interface JobCommentRepository extends JpaRepository<JobComment, Long> {
     		        @Param("search") String search,
     		        Pageable pageable
     		);
+    long countByCreatedAtAfter(LocalDateTime date);
 
 }
