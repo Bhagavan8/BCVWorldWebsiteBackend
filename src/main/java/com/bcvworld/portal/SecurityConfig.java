@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/contact").permitAll()  
                 .requestMatchers("/api/suggestion").permitAll()
                 .requestMatchers("/api/admin/finance").permitAll()
-                .requestMatchers("/api/admin/notifications").permitAll()
+                .requestMatchers("/api/admin/notifications/**").permitAll()
+                .requestMatchers("/api/mentorship/**").permitAll()
 
                 // 🔐 ADMIN
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
