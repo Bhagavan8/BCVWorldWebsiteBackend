@@ -58,24 +58,27 @@ public class AdminAuthService {
     public User login(String email, String password) {
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Email address is not registered"));
 
-        // ❗ Block social users from password login
         if (!"local".equals(user.getProvider())) {
-            throw new RuntimeException("Use social login");
+            throw new IllegalArgumentException(
+                    "Please sign in using " + user.getProvider());
         }
 
-        // ❗ Ensure password is BCrypt
         if (user.getPassword() == null || !user.getPassword().startsWith("$2a$")) {
-            throw new RuntimeException("Password not set");
+            throw new IllegalArgumentException(
+                    "Password login is not available for this account");
         }
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new IllegalArgumentException("Incorrect password");
         }
 
         return user;
     }
+
+
 
     // =========================
     // SOCIAL LOGIN

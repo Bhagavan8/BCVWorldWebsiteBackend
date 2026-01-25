@@ -95,26 +95,33 @@ public class AdminAuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
 
-		String email = credentials.get("email");
-		String password = credentials.get("password");
+	    String email = credentials.get("email");
+	    String password = credentials.get("password");
 
-		if (email == null || password == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(Map.of("message", "Email and password are required"));
-		}
+	    if (email == null || password == null) {
+	        return ResponseEntity.badRequest()
+	                .body(Map.of("message", "Email and password are required"));
+	    }
 
-		try {
-			User user = authService.login(email, password);
+	    try {
+	        User user = authService.login(email, password);
 
-			String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
+	        String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
 
-			return ResponseEntity.ok(
-					Map.of("token", token, "role", user.getRole(), "email", user.getEmail(), "name", user.getName(), "createdAT", user.getCreatedAt()));
+	        return ResponseEntity.ok(Map.of(
+	                "token", token,
+	                "role", user.getRole(),
+	                "email", user.getEmail(),
+	                "name", user.getName(),
+	                "createdAT", user.getCreatedAt()
+	        ));
 
-		} catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid email or password"));
-		}
+	    } catch (IllegalArgumentException e) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+	                .body(Map.of("message", e.getMessage()));
+	    }
 	}
+
 
 	// ================= SOCIAL LOGIN =================
 	@PostMapping("/social")
